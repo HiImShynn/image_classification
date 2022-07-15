@@ -15,6 +15,7 @@ class LeNet(nn.Module):
         self.relu3 = nn.ReLU()
         self.linear2 = nn.Linear(in_features= 120, out_features= out_channels)
         self.softmax = nn.Softmax(dim= 1)
+        self.drop = nn.Dropout(0.3)
 
     def forward(self, x):
         x = self.relu1(self.conv1(x))
@@ -23,6 +24,7 @@ class LeNet(nn.Module):
         x = self.pool2(x)
         x = x.view(x.size(0), -1) #flatten step
         x = self.relu3(self.linear1(x))
+        x = self.drop(x)
         x = self.softmax(self.linear2(x))
         return x
 
